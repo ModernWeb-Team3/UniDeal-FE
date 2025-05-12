@@ -10,6 +10,13 @@ const GlobalStyles = createGlobalStyle`
     list-style: none;
     font-family: 'Pretendard', sans-serif;
   }
+
+   #root {
+    width: 100%;
+    max-width: 430px;
+    min-height: 100vh;
+    background-color: #fff;
+  }
   
   button {
     border: none;
@@ -18,6 +25,11 @@ const GlobalStyles = createGlobalStyle`
 
   body {
     font-family: 'Pretendard', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
   }
   
   @font-face {
