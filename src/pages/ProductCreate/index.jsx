@@ -1,12 +1,96 @@
+import styled from 'styled-components';
+
 import Dropdown from '@/components/common/Dropdown';
+import Input from '@/components/common/Input';
+import Textarea from '@/components/common/Textarea';
+import Status from './Status';
+
 import location from '@/constants/location';
+import category from '@/constants/category';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
+const ImageUpload = styled.button`
+  width: 75px;
+  height: 75px;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 3px;
+`;
+
+const Horizon = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Map = styled.div`
+  background-color: #dceeff;
+  padding: 5px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+`;
+
+const mockImg = [
+  {
+    id: 0,
+    src: 'https://m.maniahouse.co.kr/web/product/big/202209/c5a2176bb886c540b8947a65cd386926.jpg',
+  },
+  {
+    id: 1,
+    src: 'https://mblogthumb-phinf.pstatic.net/20151125_5/cstory7_1448438743999Kb3zr_JPEG/1%B8%AE%B6%F4%C4%ED%B8%B6.jpg?type=w420',
+  },
+  {
+    id: 2,
+    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9PZ6AKi0-pW0p9J14fQ3k53jtVkyeSXwq7Emm_IWm8URsJ8GDjIRMxFh5kse0cdeSZRs&usqp=CAU',
+  },
+];
 
 const ProductCreate = () => {
-  console.log(location);
   return (
-    <div>
-      <Dropdown options={location} />
-    </div>
+    <Container>
+      <Horizon>
+        <ImageUpload />
+        {mockImg.map((img) => (
+          <img key={img.id} src={img.src} width={75} />
+        ))}
+      </Horizon>
+
+      <Status />
+
+      <Horizon>
+        <div>지역</div>
+        <Dropdown options={location} />
+      </Horizon>
+
+      <Horizon>
+        <div>카테고리</div>
+        <Dropdown options={category} />
+      </Horizon>
+
+      {/* 제목 */}
+      <Input />
+
+      <div>설명</div>
+      <Textarea />
+
+      <Horizon>
+        <div>거래 장소</div>
+        <Map>장소 보기</Map>
+        <Dropdown options={location} />
+      </Horizon>
+
+      <Horizon>
+        <div>가격</div>
+        <Input />원
+      </Horizon>
+
+      <button>상품 등록하기</button>
+    </Container>
   );
 };
 export default ProductCreate;
