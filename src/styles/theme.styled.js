@@ -6,6 +6,8 @@ const COLORS = {
   positive: '#12CE66',
   positiveBright: '#C9F2D1',
   warning: '#12CE66',
+  white: '#FFFFFF',
+  black: '#000000',
 };
 
 const FONT_SIZE = {
