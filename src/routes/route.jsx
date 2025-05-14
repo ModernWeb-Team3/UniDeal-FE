@@ -1,5 +1,6 @@
 import Home from '@/pages/home';
 import Signup from '@/pages/signup';
+import ProductCreate from '@/pages/ProductCreate';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -10,6 +11,10 @@ const router = createBrowserRouter([
   {
     path: '/home',
     element: <Home />,
+  },
+  {
+    path: '/product/new',
+    element: <ProductCreate />,
   },
 ]);
 
