@@ -94,8 +94,10 @@ const ProductCreate = () => {
       {/* 제목 */}
       <Input />
 
-      <div>설명</div>
-      <Textarea />
+      <div>
+        <div style={{ marginBottom: '10px' }}>설명</div>
+        <Textarea />
+      </div>
 
       <HorizonInput>
         <div>거래 장소</div>
