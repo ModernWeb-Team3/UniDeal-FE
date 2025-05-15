@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
+import Button from '@/components/common/Button/Button';
 import Status from './Status';
 
 import location from '@/constants/location';
@@ -110,7 +111,7 @@ const ProductCreate = () => {
         <Input />원
       </HorizonInput>
 
-      <button>상품 등록하기</button>
+      <Button fullWidth>상품 등록하기</Button>
     </Container>
   );
 };
