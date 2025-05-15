@@ -12,6 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  margin-top: 50px;
 `;
 
 const ImageUpload = styled.button`
@@ -22,10 +23,24 @@ const ImageUpload = styled.button`
   border-radius: 3px;
 `;
 
+const ImgPreview = styled.img`
+  width: 75px;
+  border-radius: 3px;
+`;
+
 const Horizon = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
+`;
+
+const HorizonImg = styled(Horizon)`
+  gap: 7px;
+`;
+
+const HorizonInput = styled(Horizon)`
+  :last-child {
+    margin-left: auto;
+  }
 `;
 
 const Map = styled.div`
@@ -53,24 +68,24 @@ const mockImg = [
 const ProductCreate = () => {
   return (
     <Container>
-      <Horizon>
+      <HorizonImg>
         <ImageUpload />
         {mockImg.map((img) => (
-          <img key={img.id} src={img.src} width={75} />
+          <ImgPreview key={img.id} src={img.src} />
         ))}
-      </Horizon>
+      </HorizonImg>
 
       <Status />
 
-      <Horizon>
+      <HorizonInput>
         <div>지역</div>
         <Dropdown options={location} />
-      </Horizon>
+      </HorizonInput>
 
-      <Horizon>
+      <HorizonInput>
         <div>카테고리</div>
         <Dropdown options={category} />
-      </Horizon>
+      </HorizonInput>
 
       {/* 제목 */}
       <Input />
@@ -78,16 +93,16 @@ const ProductCreate = () => {
       <div>설명</div>
       <Textarea />
 
-      <Horizon>
+      <HorizonInput>
         <div>거래 장소</div>
         <Map>장소 보기</Map>
         <Dropdown options={location} />
-      </Horizon>
+      </HorizonInput>
 
-      <Horizon>
+      <HorizonInput>
         <div>가격</div>
         <Input />원
-      </Horizon>
+      </HorizonInput>
 
       <button>상품 등록하기</button>
     </Container>
