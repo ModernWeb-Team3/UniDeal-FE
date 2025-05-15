@@ -5,7 +5,7 @@ import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
 import Button from '@/components/common/Button/Button';
-import Status from './Status';
+import Status from '../Status';
 
 import location from '@/constants/location';
 import category from '@/constants/category';

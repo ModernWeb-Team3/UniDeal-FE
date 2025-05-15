@@ -1,7 +1,7 @@
 import Home from '@/pages/home';
 import ProductDetail from '@/pages/productDetail';
 import Signup from '@/pages/signup';
-import ProductCreate from '@/pages/ProductCreate';
+import ProductCreate from '@/pages/product/productCreate';
 import { createBrowserRouter } from 'react-router-dom';
 
 const router = createBrowserRouter([
