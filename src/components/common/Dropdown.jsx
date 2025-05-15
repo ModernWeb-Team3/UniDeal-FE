@@ -78,7 +78,7 @@ const Dropdown = ({ origValue, editValue, options, name }) => {
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={handleToggle} $hasValue={!!selectedValue}>
         {selectedValue || name}
-        {isOpen ? <Up /> : <Down />}
+        {isOpen ? <Up style={{ cusor: 'pointer' }} /> : <Down style={{ cusor: 'pointer' }} />}
       </DropdownButton>
 
       {isOpen && (
