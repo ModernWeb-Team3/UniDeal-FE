@@ -4,4 +4,4 @@ const category = [
   { label: 'IT/전자기기', value: 'IT/전자기기' },
 ];
 
-export default location;
+export default category;

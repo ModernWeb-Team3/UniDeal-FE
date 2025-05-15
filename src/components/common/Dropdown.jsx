@@ -42,12 +42,10 @@ const DropdownItem = styled.div`
   background-color: #fff;
 `;
 
-const Dropdown = ({ origValue, editValue, options }) => {
+const Dropdown = ({ origValue, editValue, options, name }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(origValue);
   const dropdownRef = useRef < HTMLDivElement > null;
-
-  console.log(isOpen);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -79,7 +77,7 @@ const Dropdown = ({ origValue, editValue, options }) => {
   return (
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={handleToggle} $hasValue={!!selectedValue}>
-        {selectedValue || '카테고리'}
+        {selectedValue || name}
         {isOpen ? <Up /> : <Down />}
       </DropdownButton>
 

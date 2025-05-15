@@ -99,13 +99,8 @@ const ProductCreate = () => {
       <Status isSelling={isSelling} setIsSelling={setIsSelling} />
 
       <HorizonInput>
-        <div>지역</div>
-        <Dropdown options={location} />
-      </HorizonInput>
-
-      <HorizonInput>
         <div>카테고리</div>
-        <Dropdown options={category} />
+        <Dropdown options={category} name="카테고리" />
       </HorizonInput>
 
       {/* 제목 */}
@@ -122,7 +117,7 @@ const ProductCreate = () => {
           <Location />
           장소 보기
         </Map>
-        <Dropdown options={location} />
+        <Dropdown options={location} name="거래 장소" />
       </HorizonInput>
 
       <HorizonInput>
