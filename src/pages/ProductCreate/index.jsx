@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
@@ -48,6 +49,7 @@ const Map = styled.div`
   padding: 5px 8px;
   border-radius: 5px;
   font-size: 12px;
+  margin-left: 10px;
 `;
 
 const mockImg = [
@@ -66,6 +68,8 @@ const mockImg = [
 ];
 
 const ProductCreate = () => {
+  const [isSelling, setIsSelling] = useState(true);
+
   return (
     <Container>
       <HorizonImg>
@@ -75,7 +79,7 @@ const ProductCreate = () => {
         ))}
       </HorizonImg>
 
-      <Status />
+      <Status isSelling={isSelling} setIsSelling={setIsSelling} />
 
       <HorizonInput>
         <div>지역</div>
