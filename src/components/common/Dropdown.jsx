@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
+import Up from '@/assets/chevron_up.svg?react';
+import Down from '@/assets/chevron_down.svg?react';
+
 const DropdownContainer = styled.div`
   position: relative;
   display: flex;
@@ -77,7 +80,7 @@ const Dropdown = ({ origValue, editValue, options }) => {
     <DropdownContainer ref={dropdownRef}>
       <DropdownButton onClick={handleToggle} $hasValue={!!selectedValue}>
         {selectedValue || '카테고리'}
-        <span>{isOpen ? '▲' : '▼'}</span>
+        {isOpen ? <Up /> : <Down />}
       </DropdownButton>
 
       {isOpen && (

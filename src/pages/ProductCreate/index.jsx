@@ -10,6 +10,10 @@ import Status from './Status';
 import location from '@/constants/location';
 import category from '@/constants/category';
 
+import Location from '@/assets/location.svg?react';
+import CameraPlus from '@/assets/camera_plus.svg?react';
+import X from '@/assets/x.svg?react';
+
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -17,12 +21,16 @@ const Container = styled.div`
   margin-top: 50px;
 `;
 
-const ImageUpload = styled.button`
+const ImageUpload = styled.div`
   width: 75px;
   height: 75px;
   background-color: #fff;
   border: 2px solid #000;
   border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 const ImgPreview = styled.img`
@@ -46,6 +54,9 @@ const HorizonInput = styled(Horizon)`
 `;
 
 const Map = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 3px;
   background-color: #dceeff;
   padding: 5px 8px;
   border-radius: 5px;
@@ -74,9 +85,14 @@ const ProductCreate = () => {
   return (
     <Container>
       <HorizonImg>
-        <ImageUpload />
+        <ImageUpload>
+          <CameraPlus />
+        </ImageUpload>
         {mockImg.map((img) => (
-          <ImgPreview key={img.id} src={img.src} />
+          <div style={{ position: 'relative' }}>
+            <X style={{ cursor: 'pointer', position: 'absolute', top: '5px', right: '5px' }} />
+            <ImgPreview key={img.id} src={img.src} />
+          </div>
         ))}
       </HorizonImg>
 
@@ -102,7 +118,10 @@ const ProductCreate = () => {
 
       <HorizonInput>
         <div>거래 장소</div>
-        <Map>장소 보기</Map>
+        <Map>
+          <Location />
+          장소 보기
+        </Map>
         <Dropdown options={location} />
       </HorizonInput>
 
