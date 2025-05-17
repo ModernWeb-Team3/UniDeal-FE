@@ -4,11 +4,27 @@ import Signup from '@/pages/signup';
 import ProductCreate from '@/pages/productCreate';
 import ProductEdit from '@/pages/productEdit';
 import { createBrowserRouter } from 'react-router-dom';
+import Login from '@/pages/login';
+import SignupComplete from '@/pages/signupComplete';
+
+
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/',               
+    element: <Signup />,   
+  },
+  {
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/signup',
     element: <Signup />,
+  },
+  {
+    path: '/signup/complete',
+    element: <SignupComplete />,
   },
   {
     path: '/home',
