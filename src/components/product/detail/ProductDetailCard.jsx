@@ -50,7 +50,7 @@ const ProductImage = styled.img`
 
 const ProductDetailCard = () => {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
       <Text size="xs" color="primary" weight="600">
         {mockProduct.category}
       </Text>
@@ -66,10 +66,10 @@ const ProductDetailCard = () => {
         </Flex>
       </div>
       <Text size="lg">{mockProduct.title}</Text>
-      <Text size="lg" weight="500">
+      <Text size="lg" weight="600">
         {mockProduct.price}원
       </Text>
-      <Text size="sm">{mockProduct.seller}</Text>
+      <Text size="xs">{mockProduct.seller}</Text>
       <Line />
       <Text size="sm">{mockProduct.description}</Text>
     </div>
