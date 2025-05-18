@@ -11,7 +11,7 @@ const mockProduct = {
   commentCount: 5,
   title: '공룡책 팔아염',
   price: '10,000',
-  seller: '야호호',
+  seller: '무한이',
   description: `소웨 2학년 전공책 만원에 팔아요. 거의 새 책입니다 ~`,
   status: '판매완료', // 추후 컴포넌트로 수정
 };
@@ -45,7 +45,9 @@ export const Line = styled.div`
 
 const ProductImage = styled.img`
   width: 100%;
+  object-fit: cover;
   border-radius: 8px;
+  margin: 0 auto;
 `;
 
 const ProductDetailCard = () => {

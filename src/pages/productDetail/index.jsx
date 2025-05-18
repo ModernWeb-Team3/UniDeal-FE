@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import ProductDetailCard from '@/components/product/detail/ProductDetailCard';
+import ProductDetailCard from '@/components/product/ProductDetailCard';
 import Button from '@/components/common/Button/Button';
 import styled from 'styled-components';
 import { useState } from 'react';
@@ -8,8 +8,8 @@ import Header from '@/components/common/Header';
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  padding: 20px;
+  min-height: 95vh;
+  padding: 30px;
 `;
 
 const ProductDetail = () => {
