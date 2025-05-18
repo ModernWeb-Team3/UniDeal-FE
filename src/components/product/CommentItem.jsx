@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import CommentSvg from '@/assets/reply.svg?react';
 import MoreSvg from '@/assets/kebab.svg?react';
 import { Text } from '@/components/product/ProductDetailCard';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   padding: 12px 0;
@@ -31,6 +32,7 @@ const IconGroup = styled.div`
 const CommentItem = ({ comment, currentUserId, postOwnerId }) => {
   const isAuthor = comment.authorId === currentUserId;
   const canViewSecret = !comment.isSecret || isAuthor || postOwnerId === currentUserId;
+  const [isReplying, setIsReplying] = useState(false);
 
   return (
     <Wrapper>
@@ -39,7 +41,10 @@ const CommentItem = ({ comment, currentUserId, postOwnerId }) => {
           {comment.nickname}
         </Text>
         <IconGroup>
-          <CommentSvg style={{ cursor: 'pointer' }} />
+          <CommentSvg
+            onClick={() => setIsReplying((prev) => !prev)}
+            style={{ cursor: 'pointer' }}
+          />
           {isAuthor && <MoreSvg style={{ cursor: 'pointer' }} />}
         </IconGroup>
       </Row>
