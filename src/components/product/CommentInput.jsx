@@ -54,7 +54,16 @@ const CommentInput = ({ onSubmit }) => {
         <Circle isActive={isSecret} />
         비밀
       </SecretToggle>
-      <Input value={value} onChange={(e) => setValue(e.target.value)} />
+      <Input
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            handleSubmit();
+          }
+        }}
+      />
       <SendSvg onClick={handleSubmit} />
     </Wrapper>
   );
