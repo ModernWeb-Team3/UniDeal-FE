@@ -61,8 +61,8 @@ const EntryPage = () => {
         <Subtitle>가천대 학생들을 위한 중고 거래 플랫폼</Subtitle>
         <Subtitle>
           캠퍼스 안에서{' '}
-          <HighlightText color="green">빠르고</HighlightText>{' '}
-          <HighlightText color="blue">안전하게</HighlightText>
+          <HighlightText color="12CE66">빠르고</HighlightText>{' '}
+          <HighlightText color="2E8EFF">안전하게</HighlightText>
         </Subtitle>
 
         <Button onClick={() => navigate('/signup')} style={{ marginTop: '200px' }}>
