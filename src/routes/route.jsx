@@ -4,6 +4,7 @@ import Signup from '@/pages/signup';
 import ProductCreate from '@/pages/productCreate';
 import ProductEdit from '@/pages/productEdit';
 import { createBrowserRouter } from 'react-router-dom';
+import ProductInquiry from '@/pages/productInquiry';
 
 const router = createBrowserRouter([
   {
@@ -23,8 +24,12 @@ const router = createBrowserRouter([
     element: <ProductEdit />,
   },
   {
-    path: '/product/detail',
+    path: '/product/:id',
     element: <ProductDetail />,
+  },
+  {
+    path: '/product/:id/inquiry',
+    element: <ProductInquiry />,
   },
 ]);
 
