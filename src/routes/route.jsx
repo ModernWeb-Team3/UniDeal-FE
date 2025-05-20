@@ -9,6 +9,8 @@ import EntryPage from '@/pages/entryPage';
 import LoginModal from '@/pages/login/LoginModal';
 
 
+import ProductInquiry from '@/pages/productInquiry';
+
 const router = createBrowserRouter([
   {
     path: '/',               
@@ -39,10 +41,7 @@ const router = createBrowserRouter([
     path: '/product/:id/edit',
     element: <ProductEdit />,
   },
-  {
-    path: '/product/detail',
-    element: <ProductDetail />,
-  },
+  
 ]);
 
 export default router;
