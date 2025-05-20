@@ -13,7 +13,8 @@ const Overlay = styled.div`
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+    padding-top: 210px;
   z-index: 999;
 `;
 

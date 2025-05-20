@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import LogoImage from '@/assets/logo.svg';
-import LoginModal from '@/components/LoginModal'; // 로그인 모달 컴포넌트 추가
+import LoginModal from '@/components/LoginModal';
+import Button from '@/components/common/Button/Button'; // ✅ 커스텀 버튼 import
 
 const Container = styled.div`
   max-width: 330px;
-  margin: 100px auto;
+  margin: 50px auto;
   padding: 32px 24px;
   background-color: #fff;
   border-radius: 12px;
@@ -14,13 +15,13 @@ const Container = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 180px;
-  margin-bottom: 24px;
-  margin-top: 80px;
+  width: 210px;
+  margin-bottom: 10px;
+  margin-top: 230px;
 `;
 
 const Subtitle = styled.p`
-  font-size: 14px;
+  font-size: 12px;
   color: #444;
   margin: 6px 0;
   line-height: 1.5;
@@ -31,44 +32,39 @@ const HighlightText = styled.span`
   color: ${(props) => props.color || 'black'};
 `;
 
-const Button = styled.button`
-  width: 100%;
-  padding: 14px;
-  font-size: 16px;
-  border-radius: 10px;
-  cursor: pointer;
-  border: ${(props) => (props.outlined ? '1.5px solid #007bff' : 'none')};
-  background-color: ${(props) => (props.outlined ? '#fff' : '#007bff')};
-  color: ${(props) => (props.outlined ? '#007bff' : '#fff')};
-  margin-top: 12px;
-  font-weight: 500;
-
-  &:hover {
-    opacity: 0.9;
-  }
-`;
-
 const EntryPage = () => {
-  const [loginOpen, setLoginOpen] = useState(false); // 🔑 로그인 모달 상태
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <>
       <Container>
         <Logo src={LogoImage} alt="UniDeal 로고" />
         <Subtitle>가천대 학생들을 위한 중고 거래 플랫폼</Subtitle>
-        <Subtitle>
-          캠퍼스 안에서{' '}
-          <HighlightText color="#12CE66">빠르고 </HighlightText>
-          <HighlightText color="#2E8EFF">안전하게</HighlightText>
-
+        <Subtitle>캠퍼스 안에서 <HighlightText color="#12CE66">
+          빠르고 </HighlightText>
+        <HighlightText color="#2E8EFF">
+          안전하게</HighlightText>
         </Subtitle>
 
-        <Button onClick={() => window.location.href = '/signup'} style={{ marginTop: '200px' }}>
+        <Button
+          fullWidth
+          size="md"
+          onClick={() => (window.location.href = '/signup')}
+          style={{ marginTop: '180px' ,  marginBottom: '10px'}}
+        >
           회원가입
         </Button>
-        <Button outlined onClick={() => setLoginOpen(true)} style={{ marginBottom: '80px' }}>
-          로그인
-        </Button>
+        <Button
+  variant="outlined"
+  size="lg"
+  fullWidth
+  textColor="#2E8EFF"
+  borderColor="#2E8EFF"
+  backgroundColor="#white"
+  onClick={() => setLoginOpen(true)} 
+>
+  로그인
+</Button>
       </Container>
 
       {loginOpen && <LoginModal onClose={() => setLoginOpen(false)} />}
