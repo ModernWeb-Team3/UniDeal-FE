@@ -7,12 +7,16 @@ import ProductEdit from '@/pages/productEdit';
 import SignupComplete from '@/pages/signupComplete';
 import EntryPage from '@/pages/entryPage';
 import LoginModal from '@/pages/login/LoginModal';
+import ProductInquiry from '@/pages/productInquiry';
+
+
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <EntryPage />,
+    path: '/',               
+    element: <EntryPage/>,   
   },
+
   {
     path: '/login',
     element: <LoginModal />,
