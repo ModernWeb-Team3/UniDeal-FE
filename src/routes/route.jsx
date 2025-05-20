@@ -4,22 +4,21 @@ import ProductDetail from '@/pages/productDetail';
 import Signup from '@/pages/signup';
 import ProductCreate from '@/pages/productCreate';
 import ProductEdit from '@/pages/productEdit';
+
 import SignupComplete from '@/pages/signupComplete';
 import EntryPage from '@/pages/entryPage';
 import LoginModal from '@/pages/login/LoginModal';
-import ProductInquiry from '@/pages/productInquiry';
 
 
 
 const router = createBrowserRouter([
   {
-    path: '/',               
-    element: <EntryPage/>,   
+    path: '/',
+    element: <EntryPage />, 
   },
-
   {
     path: '/login',
-    element: <LoginModal />,
+    element: <LoginModal />, 
   },
   {
     path: '/signup',
@@ -41,10 +40,7 @@ const router = createBrowserRouter([
     path: '/product/:id/edit',
     element: <ProductEdit />,
   },
-  {
-    path: '/product/detail',
-    element: <ProductDetail />,
-  },
+  
 ]);
 
 export default router;
