@@ -7,7 +7,6 @@ import { createBrowserRouter } from 'react-router-dom';
 import Login from '@/pages/login';
 import SignupComplete from '@/pages/signupComplete';
 import EntryPage from '@/pages/entryPage';
-import LoginModal from '@/pages/login/LoginModal';
 import ProductInquiry from '@/pages/productInquiry';
 
 
@@ -18,8 +17,12 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <LoginModal />, 
+    element: <Login />, 
   },
+  // {
+  //   path: '/loginModal',
+  //   element: <LoginModal />, 
+  // },
   {
     path: '/signup',
     element: <Signup />,

@@ -76,7 +76,7 @@ export default function SignupComplete() {
   };
 
   const goToLogin = () => {
-    navigate('/login');
+    navigate('/');
   };
 
   return (
