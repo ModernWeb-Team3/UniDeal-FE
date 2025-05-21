@@ -1,13 +1,15 @@
+import { createBrowserRouter } from 'react-router-dom';
 import Home from '@/pages/home';
 import ProductDetail from '@/pages/productDetail';
 import Signup from '@/pages/signup';
 import ProductCreate from '@/pages/productCreate';
 import ProductEdit from '@/pages/productEdit';
-import { createBrowserRouter } from 'react-router-dom';
-import Login from '@/pages/login';
+
 import SignupComplete from '@/pages/signupComplete';
 import EntryPage from '@/pages/entryPage';
 import ProductInquiry from '@/pages/productInquiry';
+import Login from '@/pages/login';
+import LoginModal from '@/pages/loginModal/LoginModal';
 
 
 const router = createBrowserRouter([
@@ -19,10 +21,10 @@ const router = createBrowserRouter([
     path: '/login',
     element: <Login />, 
   },
-  // {
-  //   path: '/loginModal',
-  //   element: <LoginModal />, 
-  // },
+  {
+    path: '/loginModal',
+    element: <LoginModal />,
+  },
   {
     path: '/signup',
     element: <Signup />,
@@ -51,6 +53,7 @@ const router = createBrowserRouter([
     path: '/product/:id/inquiry',
     element: <ProductInquiry />,
   },
+  
 ]);
 
 export default router;

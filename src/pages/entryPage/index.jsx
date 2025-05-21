@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import LogoImage from '@/assets/logo.svg';
-import LoginModal from '@/components/LoginModal';
-import Button from '@/components/common/Button/Button'; // ✅ 커스텀 버튼 import
+import LogoImage from '@/assets/logo2.svg';
+import LoginModal from '@/pages/loginModal/LoginModal';
+import Button from '@/components/common/Button/Button'; 
 
 const Container = styled.div`
   max-width: 330px;
@@ -17,7 +17,7 @@ const Container = styled.div`
 const Logo = styled.img`
   width: 210px;
   margin-bottom: 10px;
-  margin-top: 230px;
+  margin-top: 200px;
 `;
 
 const Subtitle = styled.p`
@@ -55,12 +55,12 @@ const EntryPage = () => {
           회원가입
         </Button>
         <Button
-  variant="outlined"
   size="lg"
   fullWidth
   textColor="#2E8EFF"
   borderColor="#2E8EFF"
   backgroundColor="#white"
+  variant="secondary" // 버튼 색 변화화
   onClick={() => setLoginOpen(true)} 
 >
   로그인
