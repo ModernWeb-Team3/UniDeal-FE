@@ -7,8 +7,9 @@ import ProductEdit from '@/pages/productEdit';
 
 import SignupComplete from '@/pages/signupComplete';
 import EntryPage from '@/pages/entryPage';
-import LoginModal from '@/pages/login/LoginModal';
-
+import ProductInquiry from '@/pages/productInquiry';
+import Login from '@/pages/login';
+import LoginModal from '@/pages/loginModal/LoginModal';
 
 
 const router = createBrowserRouter([
@@ -18,7 +19,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <LoginModal />, 
+    element: <Login />, 
+  },
+  {
+    path: '/loginModal',
+    element: <LoginModal />,
   },
   {
     path: '/signup',
@@ -39,6 +44,14 @@ const router = createBrowserRouter([
   {
     path: '/product/:id/edit',
     element: <ProductEdit />,
+  },
+  {
+    path: '/product/:id',
+    element: <ProductDetail />,
+  },
+  {
+    path: '/product/:id/inquiry',
+    element: <ProductInquiry />,
   },
   
 ]);
