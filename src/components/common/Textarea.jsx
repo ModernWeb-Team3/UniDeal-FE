@@ -7,7 +7,7 @@ const StyledTextarea = styled.textarea`
   border-radius: 3px;
   resize: none;
   outline: none;
-  padding: 5px;
+  padding: 10px;
 `;
 
 const Textarea = () => {

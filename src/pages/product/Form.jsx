@@ -39,7 +39,10 @@ const Form = () => {
       </Horizon>
 
       {/* 제목 */}
-      <Input />
+      <Input
+        style={{ marginRight: '5px', border: '2px solid #bdbdbd' }}
+        placeholder="상품명을 입력하세요."
+      />
 
       <div>
         <div style={{ marginBottom: '10px' }}>설명</div>
@@ -57,7 +60,7 @@ const Form = () => {
 
       <Horizon>
         <div>가격</div>
-        <Input />원
+        <Input style={{ width: '150px', marginRight: '5px', border: '2px solid #bdbdbd' }} />원
       </Horizon>
     </>
   );

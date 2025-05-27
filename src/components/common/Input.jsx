@@ -1,5 +1,5 @@
 // src/components/common/Input.jsx
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const StyledInput = styled.input`
   width: 100%;
@@ -14,7 +14,7 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input = ({ type = "text", id, name, value, onChange, placeholder, ...rest }) => {
+const Input = ({ type = 'text', id, name, value, onChange, placeholder, style, ...rest }) => {
   return (
     <StyledInput
       type={type}
@@ -23,6 +23,7 @@ const Input = ({ type = "text", id, name, value, onChange, placeholder, ...rest 
       value={value}
       onChange={onChange}
       placeholder={placeholder}
+      style={style}
       {...rest} // 추가적인 props를 전달
     />
   );
