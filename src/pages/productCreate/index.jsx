@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 import Button from '@/components/common/Button/Button';
-import Form from '../product/Form';
-import ImgUpload from '../product/ImgUpload';
+import Form from '../../components/product/Form';
+import ImgUpload from '../../components/product/ImgUpload';
 
 const Container = styled.div`
   display: flex;

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 import Button from '@/components/common/Button/Button';
-import Form from '../product/Form';
-import Status from '../product/Status';
-import ImgUpload from '../product/ImgUpload';
+import Form from '../../components/product/Form';
+import Status from '../../components/product/Status';
+import ImgUpload from '../../components/product/ImgUpload';
 
 const Container = styled.div`
   display: flex;

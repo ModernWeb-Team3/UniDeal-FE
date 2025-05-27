@@ -1,13 +1,11 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
-import Button from '@/components/common/Button/Button';
-
+import MapModal from './Map';
 import location from '@/constants/location';
 import category from '@/constants/category';
-
 import Location from '@/assets/location.svg?react';
 
 const Horizon = styled.div`
@@ -28,36 +26,36 @@ const Map = styled.div`
   border-radius: 5px;
   font-size: 12px;
   margin-left: 10px;
+  cursor: pointer;
 `;
 
 const Form = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
+      {isModalOpen && <MapModal onClose={() => setIsModalOpen(false)} />}
       <Horizon>
         <div>카테고리</div>
         <Dropdown options={category} name="카테고리" />
       </Horizon>
-
       {/* 제목 */}
       <Input
         style={{ marginRight: '5px', border: '2px solid #bdbdbd' }}
         placeholder="상품명을 입력하세요."
       />
-
       <div>
         <div style={{ marginBottom: '10px' }}>설명</div>
         <Textarea />
       </div>
-
       <Horizon>
         <div>거래 장소</div>
-        <Map>
+        <Map onClick={() => setIsModalOpen(true)}>
           <Location />
           장소 보기
         </Map>
         <Dropdown options={location} name="거래 장소" />
       </Horizon>
-
       <Horizon>
         <div>가격</div>
         <Input style={{ width: '150px', marginRight: '5px', border: '2px solid #bdbdbd' }} />원
