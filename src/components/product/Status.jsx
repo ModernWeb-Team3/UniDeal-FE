@@ -6,22 +6,22 @@ const Container = styled.div`
 `;
 
 const ForSale = styled.div`
-  color: ${(props) => (props.$isSelling ? '#12CE66' : '#999')};
+  color: ${(props) => (props.$status === 'ON_SALE' ? '#12CE66' : '#999')};
   cursor: pointer;
 `;
 
 const SoldOut = styled.div`
-  color: ${(props) => (!props.$isSelling ? '#FF4949' : '#999')};
+  color: ${(props) => (props.$status === 'SOLD_OUT' ? '#FF4949' : '#999')};
   cursor: pointer;
 `;
 
-const Status = ({ isSelling, setIsSelling }) => {
+const Status = ({ status, setStatus }) => {
   return (
     <Container>
-      <ForSale $isSelling={isSelling} onClick={() => setIsSelling(true)}>
+      <ForSale $status={status} onClick={() => setStatus('ON_SALE')}>
         ● 판매 중
       </ForSale>
-      <SoldOut $isSelling={isSelling} onClick={() => setIsSelling(false)}>
+      <SoldOut $status={status} onClick={() => setStatus('SOLD_OUT')}>
         ● 판매 완료
       </SoldOut>
     </Container>

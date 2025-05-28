@@ -28,19 +28,10 @@ const Map = styled.div`
   cursor: pointer;
 `;
 
-const Form = () => {
+const Form = ({ productData, setProductData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productData, setProductData] = useState({
-    name: '',
-    detail: '',
-    price: '',
-    category: '',
-    location: '',
-    status: 'ON_SALE', // TODO: 서버 확인 후 값 변경 가능성o
-    imageList: [],
-  });
 
-  console.log(productData);
+  // console.log(productData);
 
   const handleChange = (field) => (e) => {
     setProductData((prev) => ({

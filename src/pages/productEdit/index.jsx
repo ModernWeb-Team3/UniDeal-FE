@@ -14,15 +14,28 @@ const Container = styled.div`
 `;
 
 const ProductEdit = () => {
-  const [isSelling, setIsSelling] = useState(true);
+  const [productData, setProductData] = useState({
+    name: '',
+    detail: '',
+    price: '',
+    category: '',
+    location: '',
+    status: 'ON_SALE', // TODO: 서버 확인 후 값 변경 가능성o
+    imageList: [],
+  });
+  console.log(productData);
 
   return (
     <Container>
       <ImgUpload />
-      <Status isSelling={isSelling} setIsSelling={setIsSelling} />
-      <Form />
+      <Status
+        status={productData.status}
+        setStatus={(newStatus) => setProductData((prev) => ({ ...prev, status: newStatus }))}
+      />
+      <Form productData={productData} setProductData={setProductData} />
       <Button fullWidth>상품 수정하기</Button>
     </Container>
   );
 };
+
 export default ProductEdit;
