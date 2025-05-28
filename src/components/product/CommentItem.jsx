@@ -23,26 +23,42 @@ const Content = styled.div`
   color: ${({ $dimmed }) => ($dimmed ? '#bdbdbd' : '#000')};
 `;
 
+const ReplyContent = styled(Content)`
+  padding: 12px 0px 8px 30px;
+`;
+
 const IconGroup = styled.div`
   display: flex;
   gap: 18px;
   align-items: center;
 `;
 
-const ReplyWrapper = styled.div`
-  margin-left: 16px;
-  padding-top: 4px;
+const ReplyBlock = styled.div`
+  padding-left: 12px;
+  margin-top: 4px;
+`;
+
+const ReplyRow = styled.div`
   display: flex;
-  gap: 8px;
+  justify-content: space-between;
   align-items: center;
+`;
+
+const ReplyHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
 `;
 
 const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo }) => {
   const isAuthor = comment.authorId === currentUserId;
   const canViewSecret = !comment.isSecret || isAuthor || postOwnerId === currentUserId;
 
+  const isReplying = replyTo === comment.id;
+
   return (
     <div>
+      {/* 댓글 본문 */}
       <Wrapper>
         <Row>
           <Text size="sm" weight="600">
@@ -56,29 +72,35 @@ const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo 
         <Content $dimmed={comment.isSecret && !canViewSecret}>
           {comment.isSecret && !canViewSecret ? '( 비밀글입니다 )' : comment.content}
         </Content>
-        {replyTo === comment.id && (
-          <ReplyWrapper>
-            <ReplyArrow />
-            <Text size="sm">대댓글</Text>
-          </ReplyWrapper>
-        )}
       </Wrapper>
 
+      {isReplying && (
+        <ReplyBlock>
+          <ReplyArrow />
+        </ReplyBlock>
+      )}
+
+      {/* 대댓글 목록 */}
       {comment.replies?.map((reply) => {
         const isReplyAuthor = reply.authorId === currentUserId;
         const canViewReply = !reply.isSecret || isReplyAuthor || postOwnerId === currentUserId;
 
         return (
-          <Wrapper key={reply.id} style={{ paddingLeft: '20px' }}>
-            <Row>
-              <Text size="sm" weight="600">
-                {reply.nickname}
-              </Text>
-              <IconGroup>{isReplyAuthor && <MoreSvg style={{ cursor: 'pointer' }} />}</IconGroup>
-            </Row>
-            <Content $dimmed={reply.isSecret && !canViewReply}>
-              {reply.isSecret && !canViewReply ? '( 비밀글입니다 )' : reply.content}
-            </Content>
+          <Wrapper key={reply.id}>
+            <ReplyBlock>
+              <ReplyRow>
+                <ReplyHeader>
+                  <ReplyArrow />
+                  <Text size="sm" weight="600">
+                    {reply.nickname}
+                  </Text>
+                </ReplyHeader>
+                {isReplyAuthor && <MoreSvg style={{ cursor: 'pointer' }} />}
+              </ReplyRow>
+              <ReplyContent $dimmed={reply.isSecret && !canViewReply}>
+                {reply.isSecret && !canViewReply ? '( 비밀글입니다 )' : reply.content}
+              </ReplyContent>
+            </ReplyBlock>
           </Wrapper>
         );
       })}
