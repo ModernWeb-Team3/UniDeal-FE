@@ -5,10 +5,11 @@ import Header from '@/components/common/Header';
 
 const ProductInquiry = () => {
   const [comments, setComments] = useState([]);
+  const [replyTo, setReplyTo] = useState(null);
+
   const currentUserId = 1; // 로그인된 유저 ID
   const postOwnerId = 3; // 게시물 작성자 ID
 
-  // 목데이터
   useEffect(() => {
     setComments([
       {
@@ -28,17 +29,47 @@ const ProductInquiry = () => {
     ]);
   }, []);
 
-  const handleNewComment = (newComment) => {
-    const nextId = comments.length + 1;
-    setComments([
-      ...comments,
+  const handleAddComment = (commentData) => {
+    setComments((prev) => [
+      ...prev,
       {
-        id: nextId,
+        id: Date.now(),
         authorId: currentUserId,
         nickname: '나',
-        ...newComment,
+        ...commentData,
       },
     ]);
+  };
+
+  const handleAddReply = (parentId, replyData) => {
+    setComments((prev) =>
+      prev.map((comment) =>
+        comment.id === parentId
+          ? {
+              ...comment,
+              replies: [
+                ...(comment.replies || []),
+                {
+                  id: Date.now(),
+                  authorId: currentUserId,
+                  nickname: '나',
+                  ...replyData,
+                },
+              ],
+            }
+          : comment,
+      ),
+    );
+    setReplyTo(null);
+  };
+
+  const handleSubmit = ({ content, isSecret }) => {
+    if (!content.trim()) return;
+    if (replyTo) {
+      handleAddReply(replyTo, { content, isSecret });
+    } else {
+      handleAddComment({ content, isSecret });
+    }
   };
 
   return (
@@ -50,9 +81,11 @@ const ProductInquiry = () => {
             comments={comments}
             currentUserId={currentUserId}
             postOwnerId={postOwnerId}
+            replyTo={replyTo}
+            setReplyTo={setReplyTo}
           />
         </div>
-        <CommentInput onSubmit={handleNewComment} />
+        <CommentInput onSubmit={handleSubmit} />
       </div>
     </>
   );
