@@ -10,7 +10,8 @@ const StyledTextarea = styled.textarea`
   padding: 10px;
 `;
 
-const Textarea = () => {
-  return <StyledTextarea />;
+const Textarea = ({ value, onChange, placeholder }) => {
+  return <StyledTextarea value={value} onChange={onChange} placeholder={placeholder} />;
 };
+
 export default Textarea;

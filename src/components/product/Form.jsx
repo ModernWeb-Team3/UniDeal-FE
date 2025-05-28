@@ -11,7 +11,6 @@ import Location from '@/assets/location.svg?react';
 const Horizon = styled.div`
   display: flex;
   align-items: center;
-
   :last-child {
     margin-left: auto;
   }
@@ -31,34 +30,75 @@ const Map = styled.div`
 
 const Form = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productData, setProductData] = useState({
+    name: '',
+    detail: '',
+    price: '',
+    category: '',
+    location: '',
+    status: 'ON_SALE', // TODO: 서버 확인 후 값 변경 가능성o
+    imageList: [],
+  });
+
+  console.log(productData);
+
+  const handleChange = (field) => (e) => {
+    setProductData((prev) => ({
+      ...prev,
+      [field]: e.target.value,
+    }));
+  };
 
   return (
     <>
       {isModalOpen && <MapModal onClose={() => setIsModalOpen(false)} />}
+
       <Horizon>
         <div>카테고리</div>
-        <Dropdown options={category} name="카테고리" />
+        <Dropdown
+          options={category}
+          name="카테고리"
+          origValue={productData.category}
+          editValue={(value) => setProductData((prev) => ({ ...prev, category: value }))}
+        />
       </Horizon>
-      {/* 제목 */}
+
       <Input
         style={{ marginRight: '5px', border: '2px solid #bdbdbd' }}
         placeholder="상품명을 입력하세요."
+        value={productData.name}
+        onChange={handleChange('name')}
       />
+
       <div>
         <div style={{ marginBottom: '10px' }}>설명</div>
-        <Textarea />
+        <Textarea value={productData.detail} onChange={handleChange('detail')} />
       </div>
+
       <Horizon>
         <div>거래 장소</div>
         <Map onClick={() => setIsModalOpen(true)}>
           <Location />
           장소 보기
         </Map>
-        <Dropdown options={location} name="거래 장소" />
+        <Dropdown
+          options={location}
+          name="거래 장소"
+          origValue={productData.location}
+          editValue={(value) => setProductData((prev) => ({ ...prev, location: value }))}
+        />
       </Horizon>
+
       <Horizon>
         <div>가격</div>
-        <Input style={{ width: '150px', marginRight: '5px', border: '2px solid #bdbdbd' }} />원
+        <Input
+          style={{ width: '150px', marginRight: '5px', border: '2px solid #bdbdbd' }}
+          type="number"
+          placeholder="가격"
+          value={productData.price}
+          onChange={handleChange('price')}
+        />
+        원
       </Horizon>
     </>
   );
