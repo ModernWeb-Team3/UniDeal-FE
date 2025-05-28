@@ -3,6 +3,8 @@ import CommentSvg from '@/assets/reply.svg?react';
 import MoreSvg from '@/assets/kebab.svg?react';
 import ReplyArrow from '@/assets/reply_arrow.svg?react';
 import { Text } from '@/components/product/ProductDetailCard';
+import CommentModal from './CommentModal';
+import { useState } from 'react';
 
 const Wrapper = styled.div`
   padding: 12px 0;
@@ -53,8 +55,10 @@ const ReplyHeader = styled.div`
 const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo }) => {
   const isAuthor = comment.authorId === currentUserId;
   const canViewSecret = !comment.isSecret || isAuthor || postOwnerId === currentUserId;
-
   const isReplying = replyTo === comment.id;
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
 
   return (
     <div>
@@ -66,7 +70,19 @@ const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo 
           </Text>
           <IconGroup>
             <CommentSvg onClick={() => setReplyTo(comment.id)} style={{ cursor: 'pointer' }} />
-            {isAuthor && <MoreSvg style={{ cursor: 'pointer' }} />}
+            {isAuthor && (
+              <MoreSvg
+                style={{ cursor: 'pointer' }}
+                onClick={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  setModalPosition({
+                    top: rect.bottom + window.scrollY + 12,
+                    left: rect.left - 96,
+                  });
+                  setModalOpen(true);
+                }}
+              />
+            )}
           </IconGroup>
         </Row>
         <Content $dimmed={comment.isSecret && !canViewSecret}>
@@ -104,6 +120,22 @@ const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo 
           </Wrapper>
         );
       })}
+
+      {modalOpen && (
+        <CommentModal
+          top={modalPosition.top}
+          left={modalPosition.left}
+          onClose={() => setModalOpen(false)}
+          onEdit={() => {
+            //수정
+            setModalOpen(false);
+          }}
+          onDelete={() => {
+            //삭제
+            setModalOpen(false);
+          }}
+        />
+      )}
     </div>
   );
 };
