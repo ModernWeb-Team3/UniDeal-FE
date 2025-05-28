@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import Input from '@/components/common/Input';
 import Button from '@/components/common/Button/Button';
-import CongratsImage from '@/assets/congratulate-2.svg';
+import CongratsImage from '@/assets/congratulate.svg';
 
 const Container = styled.div`
   max-width: 330px;
@@ -39,10 +39,14 @@ const ErrorText = styled.p`
 
 const ModalOverlay = styled.div`
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: flex; justify-content: center; align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Modal = styled.div`
@@ -122,7 +126,6 @@ export default function SignupComplete() {
           onClick={handleSubmit}
           disabled={!password || !nickname}
           style={{ marginBottom: '10px' }}
-
         >
           회원가입 완료
         </Button>
@@ -132,12 +135,8 @@ export default function SignupComplete() {
       {modalOpen && (
         <ModalOverlay>
           <Modal>
-            <img
-                src={CongratsImage}
-                alt="축하 이미지"
-                style={{ width: 120, height: 120 }}
-      />
-            <p style={{ marginBottom: 30 , marginTop: 10}}>회원가입이 완료되었어요!</p>
+            <img src={CongratsImage} alt="축하 이미지" style={{ width: 120, height: 120 }} />
+            <p style={{ marginBottom: 30, marginTop: 10 }}>회원가입이 완료되었어요!</p>
             <Button onClick={goToLogin} fullWidth variant="primary">
               로그인 하러가기
             </Button>
