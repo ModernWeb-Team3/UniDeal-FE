@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 import CameraPlus from '@/assets/camera_plus.svg?react';
 import X from '@/assets/x.svg?react';
@@ -16,7 +17,10 @@ const Upload = styled.div`
 
 const ImgPreview = styled.img`
   width: 75px;
+  height: 75px;
   border-radius: 3px;
+  object-fit: cover;
+  object-position: center;
 `;
 
 const HorizonImg = styled.div`
@@ -25,31 +29,61 @@ const HorizonImg = styled.div`
   gap: 7px;
 `;
 
-const mockImg = [
-  {
-    id: 0,
-    src: 'https://m.maniahouse.co.kr/web/product/big/202209/c5a2176bb886c540b8947a65cd386926.jpg',
-  },
-  {
-    id: 1,
-    src: 'https://mblogthumb-phinf.pstatic.net/20151125_5/cstory7_1448438743999Kb3zr_JPEG/1%B8%AE%B6%F4%C4%ED%B8%B6.jpg?type=w420',
-  },
-  {
-    id: 2,
-    src: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9PZ6AKi0-pW0p9J14fQ3k53jtVkyeSXwq7Emm_IWm8URsJ8GDjIRMxFh5kse0cdeSZRs&usqp=CAU',
-  },
-];
-
 const ImgUpload = () => {
+  const [images, setImages] = useState([]);
+  const fileInputRef = useRef(null);
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
+    const newImages = files.map((file) => ({
+      id: URL.createObjectURL(file),
+      src: URL.createObjectURL(file),
+      file,
+    }));
+
+    setImages((prev) => {
+      const totalImages = [...prev, ...newImages];
+      return totalImages.slice(0, 3); // 최대 3개만 유지
+    });
+  };
+
+  const handleDeleteImage = (id) => {
+    setImages((prev) => prev.filter((img) => img.id !== id));
+  };
+
+  const handleUploadClick = () => {
+    if (images.length >= 3) {
+      alert('이미지는 최대 3개까지 업로드할 수 있습니다.');
+      return;
+    }
+    fileInputRef.current.click();
+  };
+
   return (
     <HorizonImg>
-      <Upload>
+      <Upload onClick={handleUploadClick}>
         <CameraPlus />
       </Upload>
-      {mockImg.map((img) => (
-        <div style={{ position: 'relative' }}>
-          <X style={{ cursor: 'pointer', position: 'absolute', top: '5px', right: '5px' }} />
-          <ImgPreview key={img.id} src={img.src} />
+      <input
+        type="file"
+        multiple
+        accept="image/*"
+        style={{ display: 'none' }}
+        ref={fileInputRef}
+        onChange={handleImageUpload}
+      />
+      {images.map((img) => (
+        <div key={img.id} style={{ position: 'relative' }}>
+          <X
+            style={{
+              cursor: 'pointer',
+              position: 'absolute',
+              top: '5px',
+              right: '5px',
+            }}
+            onClick={() => handleDeleteImage(img.id)}
+          />
+          <ImgPreview src={img.src} />
         </div>
       ))}
     </HorizonImg>
