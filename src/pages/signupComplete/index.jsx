@@ -5,36 +5,43 @@ import Input from '@/components/common/Input';
 import Button from '@/components/common/Button/Button';
 import CongratsImage from '@/assets/congratulate.svg';
 
-const Container = styled.div`
-  max-width: 330px;
-  margin: 50px auto;
-  padding: 32px 24px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+const Wrapper = styled.div`
+  width: 100%;
+  max-width: 450px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+`;
+
+const Content = styled.div`
+  padding: 30px 50px;
+  flex: 1;
 `;
 
 const Title = styled.h2`
+ margin-top: 50px;
   font-size: 20px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const Subtitle = styled.p`
   font-size: 14px;
   color: #555;
-  margin-bottom: 3px;
+  margin-bottom: 8px;
 `;
 
 const Label = styled.p`
   font-size: 13px;
+  margin-top: 10spx;
   margin-bottom: 10px;
-  margin-top: 5px;
+  padding-left: 0px;
 `;
 
 const ErrorText = styled.p`
   font-size: 13px;
   color: #e53935;
-  margin: 4px 0 10px;
+  margin: 6px 0 10px;
 `;
 
 const ModalOverlay = styled.div`
@@ -52,9 +59,11 @@ const ModalOverlay = styled.div`
 const Modal = styled.div`
   background: #fff;
   border-radius: 16px;
-  padding: 32px 24px;
+  padding: 32px px;
   width: 300px;
   text-align: center;
+  max-width: 360px; // 기존보다 조금 더 넓게
+  padding: 28px 20px; // 좌우 여백 줄이기
 `;
 
 export default function SignupComplete() {
@@ -65,7 +74,7 @@ export default function SignupComplete() {
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [error, setError] = useState('');
-  const [modalOpen, setModalOpen] = useState(false); // ✅ 모달 상태
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleSubmit = () => {
     if (!password || !nickname) {
@@ -74,8 +83,6 @@ export default function SignupComplete() {
     }
 
     // TODO: 회원가입 API 호출
-
-    // ✅ 회원가입 완료 시 모달 열기
     setModalOpen(true);
   };
 
@@ -85,53 +92,51 @@ export default function SignupComplete() {
 
   return (
     <>
-      <Container>
-        <Title>인증이 완료되었습니다</Title>
-        <Subtitle>사용할 비밀번호와 닉네임을</Subtitle>
-        <Subtitle>입력해주세요</Subtitle>
-        <Subtitle>ㅤ</Subtitle>
-        <Subtitle>ㅤ</Subtitle>
-        <Subtitle>ㅤ</Subtitle>
+      <Wrapper>
+        <Content>
+          <Title>인증이 완료되었습니다</Title>
+          <Subtitle>사용할 비밀번호와 닉네임을</Subtitle>
+          <Subtitle>입력해주세요<br/><br/><br/></Subtitle>
+   
+          {email && (
+            <>
+              <Label>이메일</Label>
+              <Input value={email} disabled style={{ marginBottom: '30px' , marginTop: '3px'}} />
+            </>
+          )}
 
-        {email && (
-          <>
-            <Label>이메일</Label>
-            <Input value={email} disabled style={{ marginBottom: '16px' }} />
-          </>
-        )}
+          <Label>비밀번호</Label>
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ marginBottom: '30px' }}
+          />
 
-        <Label>비밀번호</Label>
-        <Input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ marginBottom: '16px' }}
-        />
+          <Label>닉네임</Label>
+          <Input
+            type="text"
+            placeholder="ex) 무한이"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            style={{ marginBottom: '180px' }}
+          />
 
-        <Label>닉네임</Label>
-        <Input
-          type="text"
-          placeholder="ex) 무한이"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          style={{ marginBottom: '200px' }}
-        />
+          {error && <ErrorText>{error}</ErrorText>}
 
-        {error && <ErrorText>{error}</ErrorText>}
+          <Button
+            variant="primary"
+            size="lg"
+            fullWidth
+            onClick={handleSubmit}
+            disabled={!password || !nickname}
+            style={{ marginBottom: '10px' }}
+          >
+            회원가입 진행하기
+          </Button>
+        </Content>
+      </Wrapper>
 
-        <Button
-          variant="primary"
-          size="lg"
-          fullWidth
-          onClick={handleSubmit}
-          disabled={!password || !nickname}
-          style={{ marginBottom: '10px' }}
-        >
-          회원가입 완료
-        </Button>
-      </Container>
-
-      {/* ✅ 회원가입 완료 모달 */}
       {modalOpen && (
         <ModalOverlay>
           <Modal>
