@@ -52,7 +52,7 @@ const ReplyHeader = styled.div`
   gap: 12px;
 `;
 
-const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo }) => {
+const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo, onDelete }) => {
   const isAuthor = comment.authorId === currentUserId;
   const canViewSecret = !comment.isSecret || isAuthor || postOwnerId === currentUserId;
   const isReplying = replyTo === comment.id;
@@ -131,7 +131,10 @@ const CommentItem = ({ comment, currentUserId, postOwnerId, setReplyTo, replyTo 
             setModalOpen(false);
           }}
           onDelete={() => {
-            //삭제
+            const confirmed = window.confirm('정말 댓글을 삭제하시겠습니까?');
+            if (confirmed) {
+              onDelete(comment.id);
+            }
             setModalOpen(false);
           }}
         />

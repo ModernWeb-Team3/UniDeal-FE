@@ -63,6 +63,10 @@ const ProductInquiry = () => {
     setReplyTo(null);
   };
 
+  const handleDelete = (commentId) => {
+    setComments((prev) => prev.filter((comment) => comment.id !== commentId));
+  };
+
   const handleSubmit = ({ content, isSecret }) => {
     if (!content.trim()) return;
     if (replyTo) {
@@ -83,6 +87,7 @@ const ProductInquiry = () => {
             postOwnerId={postOwnerId}
             replyTo={replyTo}
             setReplyTo={setReplyTo}
+            onDelete={handleDelete}
           />
         </div>
         <CommentInput onSubmit={handleSubmit} />
