@@ -22,8 +22,6 @@ const ProductCreate = () => {
     imageList: [],
   });
 
-  console.log(productData);
-
   return (
     <Container>
       <ImgUpload />

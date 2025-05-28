@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Dropdown from '@/components/common/Dropdown';
 import Input from '@/components/common/Input';
 import Textarea from '@/components/common/Textarea';
-import MapModal from './Map';
+import MapModal from './MapModal';
 import location from '@/constants/location';
 import category from '@/constants/category';
 import Location from '@/assets/location.svg?react';
@@ -30,8 +30,6 @@ const Map = styled.div`
 
 const Form = ({ productData, setProductData }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // console.log(productData);
 
   const handleChange = (field) => (e) => {
     setProductData((prev) => ({

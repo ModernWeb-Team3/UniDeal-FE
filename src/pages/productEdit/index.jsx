@@ -23,7 +23,6 @@ const ProductEdit = () => {
     status: 'ON_SALE', // TODO: 서버 확인 후 값 변경 가능성o
     imageList: [],
   });
-  console.log(productData);
 
   return (
     <Container>

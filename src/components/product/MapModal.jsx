@@ -23,7 +23,7 @@ const Content = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   width: 400px;
-  height: 400px;
+  height: 500px;
   box-sizing: border-box;
   background-color: #fff;
   border-radius: 20px;
@@ -60,7 +60,7 @@ const MapModal = ({ onClose }) => {
   return (
     <Container onClick={onClose}>
       <Content onClick={(e) => e.stopPropagation()}>
-        <div ref={mapRef} style={{ width: '400px', height: '400px' }} />
+        <div ref={mapRef} style={{ width: '400px', height: '700px' }} />
       </Content>
     </Container>
   );
