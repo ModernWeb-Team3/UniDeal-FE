@@ -1,6 +1,6 @@
 import CommentItem from './CommentItem';
 
-const CommentList = ({ comments, currentUserId, postOwnerId }) => {
+const CommentList = ({ comments, currentUserId, postOwnerId, replyTo, setReplyTo, onDelete }) => {
   return (
     <div style={{ padding: '12px' }}>
       {comments.map((comment) => (
@@ -9,6 +9,9 @@ const CommentList = ({ comments, currentUserId, postOwnerId }) => {
           comment={comment}
           currentUserId={currentUserId}
           postOwnerId={postOwnerId}
+          replyTo={replyTo}
+          setReplyTo={setReplyTo}
+          onDelete={onDelete}
         />
       ))}
     </div>
