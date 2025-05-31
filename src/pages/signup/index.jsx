@@ -4,14 +4,6 @@ import Input from '@/components/common/Input';
 import Button from '@/components/common/Button/Button';
 import { useNavigate } from 'react-router-dom';
 
-const Container = styled.div`
-  max-width: 330px;
-  margin: 50px auto;
-  padding: 32px 24px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-`;
 
 
 
@@ -118,60 +110,67 @@ function Signup() {
   };
 
   return (
-    <Container>
-      <Title>UniDeal에 오신 것을</Title>
-      <Title>환영합니다!</Title>
-      <Subtitle>가천대학교 이메일로 인증할게요</Subtitle>
+  <div
+    style={{
+      maxWidth: '330px',
+      margin: '50px auto',
+      padding: '30px 0px',
 
-      <Subtitle2>이메일</Subtitle2>
-      <EmailRow>
-        <EmailInput
-          type="text"
-          placeholder="이메일 입력"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <FixedDomain>@gachon.ac.kr</FixedDomain>
-      </EmailRow>
-      {emailError && <ErrorText>{emailError}</ErrorText>} {/* ✅ 이메일 에러 */}
-
-   <Button
-   variant="primary"
-   size="lg"
-   fullWidth
-    onClick={generateCode}
-   disabled={!email} // ✅ timerActive 조건 제거
-   style={{ marginTop: '20px' }}
+    }}
   >
-   {isCodeSent && timeLeft > 0
-     ? `인증번호 다시 받기 (${formatTime(timeLeft)})`
-     : '인증 번호 받기'}
-  </Button>
+    <Title>UniDeal에 오신 것을</Title>
+    <Title>환영합니다!</Title>
+    <Subtitle>가천대학교 이메일로 인증할게요</Subtitle>
 
-      <Subtitle2>인증번호</Subtitle2>
-      <Input
+    <Subtitle2>이메일</Subtitle2>
+    <EmailRow>
+      <EmailInput
         type="text"
-        placeholder="인증번호를 입력해주세요"
-        value={inputCode}
-        onChange={(e) => setInputCode(e.target.value)}
-        maxLength={6}
-        style={{ marginTop: '5px' }}
+        placeholder="이메일 입력"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
-      {codeError && <ErrorText>{codeError}</ErrorText>} {/* ✅ 인증번호 에러 */}
+      <FixedDomain>@gachon.ac.kr</FixedDomain>
+    </EmailRow>
+    {emailError && <ErrorText>{emailError}</ErrorText>}
 
-      <Button
-        variant="primary"
-        size="lg"
-        fullWidth
-        onClick={verifyCode}
-        disabled={!inputCode}
-        style={{ marginTop: '20px', marginBottom: '150px' }}
+    <Button
+      variant="primary"
+      size="lg"
+      fullWidth
+      onClick={generateCode}
+      disabled={!email}
+      style={{ marginTop: '20px' }}
+    >
+      {isCodeSent && timeLeft > 0
+        ? `인증번호 다시 받기 (${formatTime(timeLeft)})`
+        : '인증 번호 받기'}
+    </Button>
 
-      >
-        인증 확인
-      </Button>
-    </Container>
-  );
+    <Subtitle2>인증번호</Subtitle2>
+    <Input
+      type="text"
+      placeholder="인증번호를 입력해주세요"
+      value={inputCode}
+      onChange={(e) => setInputCode(e.target.value)}
+      maxLength={6}
+      style={{ marginTop: '5px' }}
+    />
+    {codeError && <ErrorText>{codeError}</ErrorText>}
+
+    <Button
+      variant="primary"
+      size="lg"
+      fullWidth
+      onClick={verifyCode}
+      disabled={!inputCode}
+      style={{ marginTop: '20px', marginBottom: '150px' }}
+    >
+      인증 확인
+    </Button>
+  </div>
+);
+
 }
 
 export default Signup;
