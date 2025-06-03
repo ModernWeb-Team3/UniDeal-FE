@@ -36,5 +36,3 @@ const ProductEdit = () => {
     </Container>
   );
 };
-
-export default ProductEdit;

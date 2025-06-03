@@ -1,6 +1,7 @@
 // src/components/common/Input.jsx
 import styled from 'styled-components';
 
+
 const StyledInput = styled.input`
   width: 100%;
   padding: 10px 12px;
@@ -13,6 +14,7 @@ const StyledInput = styled.input`
     outline: none;
   }
 `;
+
 
 const Input = ({ type = 'text', id, name, value, onChange, placeholder, style, ...rest }) => {
   return (
@@ -29,4 +31,6 @@ const Input = ({ type = 'text', id, name, value, onChange, placeholder, style, .
   );
 };
 
+
 export default Input;
+

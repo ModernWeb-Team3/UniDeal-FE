@@ -1,33 +1,50 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import Button from '@/components/common/Button/Button';
 import logo from '@/assets/logo.svg';
+import StatusLabel from '@/components/common/Label/StatusLabel';
 
 const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showSearch, setShowSearch] = useState(false);
   const [showLocation, setShowLocation] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState('가천대학교');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isPressed, setIsPressed] = useState(false);
 
   const toggleSearch = () => setShowSearch((prev) => !prev);
 
-  const categories = ['의류', '책/서적', 'IT/전자기기'];
+  const navigate = useNavigate();
+
+  const categories = ['책','의류','전공물품','전자기기', '가구','기타'];
   const locations = [
     '가천대학교', 'AI공학관', '비전타워', '중앙도서관', '교육대학원',
     '공과대학1', '공과대학2', '한의과대학', '전자정보도서관',
     '글로벌센터', '법과대학', '생활관', '가천대역'
   ];
+//더미 데이터
+  const items = [
+    { id: 1, title: '아이패드 팝니다', category: '전자기기', price: '150,000원', status: 'sold-out' },
+    { id: 2, title: '전공책 판매합니다', category: '책', price: '10,000원', status: 'reserved' },
+    { id: 3, title: '전자계산기 판매', category: '전공물품', price: '20,000원', status: 'completed' },
+    { id: 4, title: '책상 팝니다', category: '가구', price: '30,000원' },
+    { id: 5, title: '옷 정리합니다', category: '의류', price: '5,000원' },
+  ];
 
-  const [isPressed, setIsPressed] = useState(false);
+  const filteredItems = items.filter((item) => {
+    const matchesKeyword = item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory ? item.category === selectedCategory : true;
+    return matchesKeyword && matchesCategory;
+  });
 
   const handleWriteClick = () => {
     setIsPressed(true);
-    setTimeout(() => setIsPressed(false), 150); // 0.15초 후 원래 상태로
-    // 추가로 이동이나 동작 수행 가능
+    setTimeout(() => setIsPressed(false), 150);
+    navigate('/product/new');
   };
-  
+
   return (
-    
     <Wrapper>
       <FixedHeader>
         <HeaderLogo>
@@ -43,7 +60,6 @@ const Home = () => {
 
         {showLocation && (
           <LocationDropdown>
-            <LocationTitle></LocationTitle>
             <LocationList>
               {locations.map((loc) => (
                 <LocationItem
@@ -64,72 +80,75 @@ const Home = () => {
           <SearchInput
             type="text"
             placeholder="상품명으로 검색"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
             autoFocus
           />
         )}
 
         <FilterWrapper>
-        {categories.map((category) => (
-          <Button
-            key={category}
-            variant={selectedCategory === category ? 'primary' : 'secondary'}
-            size="sm"
-            rounded="md"
-            textColor={selectedCategory === category ? '#fff' : '#333'}
-            borderColor="#ccc"
-            onClick={() =>
-              setSelectedCategory((prev) =>
-                prev === category ? '' : category
-              )
-            }
-          >
-            {category}
-          </Button>
-        ))}
-
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? 'primary' : 'secondary'}
+              size="sm"
+              rounded="md"
+              textColor={selectedCategory === category ? '#fff' : '#333'}
+              borderColor="#ccc"
+              onClick={() =>
+                setSelectedCategory((prev) =>
+                  prev === category ? '' : category
+                )
+              }
+            >
+              {category}
+            </Button>
+          ))}
         </FilterWrapper>
 
         <GuideText>판매중인 물품을 확인해보세요</GuideText>
       </FixedHeader>
 
       <ScrollArea>
-      <ItemList>
-        {[...Array(30)].map((_, i) => {
-          let status = null;
-
-          return (
-            <Item key={i}>
-              <Thumbnail />
-              <ItemInfo>
-                <Title>판매 상품 제목 {i + 1}</Title>
-                <SubInfo>{selectedLocation}</SubInfo>
-                <BottomRow>
-                  <Price>10,000원</Price>
-                </BottomRow>
-              </ItemInfo>
-            </Item>
-          );
-        })}
-      </ItemList>
-
-
+        <ItemList>
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item) => (
+              <Item key={item.id}
+                onClick={() => navigate(`/product/${item.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
+                <Thumbnail />
+                <ItemInfo>
+                  <Title>{item.title}</Title>
+                  <SubInfo>{selectedLocation}</SubInfo>
+                  <BottomRow>
+                    <Price>{item.price}</Price>
+                    <StatusLabel status={item.status} />
+                  </BottomRow>
+                </ItemInfo>
+              </Item>
+            ))
+          ) : (
+            <p>검색 결과가 없습니다.</p>
+          )}
+        </ItemList>
       </ScrollArea>
-
+      
+      
       <FixedFooter>
-      <Button
-        variant="primary"
-        size="md"
-        rounded="full"
-        onClick={handleWriteClick}
-        style={{
-          transform: isPressed ? 'scale(0.96)' : 'scale(1)',
-          backgroundColor: isPressed ? '#DCEEFF' : '#2E8EFF',
-          transition: 'all 0.1s ease-in-out',
-        }}
-      >
-        + 글쓰기
-      </Button>
-
+        <Button
+          variant="primary"
+          size="md"
+          rounded="full"
+          onClick={handleWriteClick}
+          style={{
+            transform: isPressed ? 'scale(0.96)' : 'scale(1)',
+            backgroundColor: isPressed ? '#DCEEFF' : '#2E8EFF',
+            transition: 'all 0.1s ease-in-out',
+          }}
+        >
+          + 게시물 작성
+        </Button>
       </FixedFooter>
     </Wrapper>
   );
