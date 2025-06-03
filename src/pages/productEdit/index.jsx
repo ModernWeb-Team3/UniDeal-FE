@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import { useState } from 'react';
 
 import Button from '@/components/common/Button/Button';
-import Form from '../product/Form';
-import Status from '../product/Status';
-import ImgUpload from '../product/ImgUpload';
+import Form from '../../components/product/Form';
+import Status from '../../components/product/Status';
+import ImgUpload from '../../components/product/ImgUpload';
 
 const Container = styled.div`
   display: flex;
@@ -14,15 +14,25 @@ const Container = styled.div`
 `;
 
 const ProductEdit = () => {
-  const [isSelling, setIsSelling] = useState(true);
+  const [productData, setProductData] = useState({
+    name: '',
+    detail: '',
+    price: '',
+    category: '',
+    location: '',
+    status: 'ON_SALE', // TODO: 서버 확인 후 값 변경 가능성o
+    imageList: [],
+  });
 
   return (
     <Container>
       <ImgUpload />
-      <Status isSelling={isSelling} setIsSelling={setIsSelling} />
-      <Form />
+      <Status
+        status={productData.status}
+        setStatus={(newStatus) => setProductData((prev) => ({ ...prev, status: newStatus }))}
+      />
+      <Form productData={productData} setProductData={setProductData} />
       <Button fullWidth>상품 수정하기</Button>
     </Container>
   );
 };
-export default ProductEdit;

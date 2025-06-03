@@ -2,11 +2,14 @@ import { faker } from '@faker-js/faker';
 import styled, { css } from 'styled-components';
 import LocationSvg from '@/assets/location.svg?react';
 import CommentSvg from '@/assets/comment.svg?react';
+import ProductImageSlider from './ProductImageSilder';
 
 const mockProduct = {
   id: 1,
   category: '책/서적',
-  imageUrl: faker.image.urlLoremFlickr({ width: 300, height: 300 }),
+  imageUrls: Array.from({ length: 3 }, () =>
+    faker.image.avatarGitHub({ width: 300, height: 300, category: 'book' }),
+  ),
   meetingLocation: 'AI공학관',
   commentCount: 5,
   title: '공룡책 팔아염',
@@ -56,7 +59,7 @@ const ProductDetailCard = () => {
       <Text size="xs" color="primary" weight="600">
         {mockProduct.category}
       </Text>
-      <ProductImage src={mockProduct.imageUrl} alt={mockProduct.title} />
+      <ProductImageSlider images={mockProduct.imageUrls} />
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <Flex>
           <LocationSvg />

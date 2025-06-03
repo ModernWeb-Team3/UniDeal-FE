@@ -23,8 +23,8 @@ const SecretToggle = styled.div`
   display: flex;
   align-items: center;
   font-size: 14px;
-  color: ${({ isActive, theme }) => (isActive ? theme.COLORS.primary : '#fff')};
-  font-weight: ${({ isActive }) => (isActive ? 600 : 400)};
+  color: ${({ $isActive, theme }) => ($isActive ? theme.COLORS.primary : '#fff')};
+  font-weight: ${({ $isActive }) => ($isActive ? 600 : 400)};
   cursor: pointer;
   gap: 4px;
 `;
@@ -33,7 +33,7 @@ const Circle = styled.div`
   width: 12px;
   height: 12px;
   border-radius: 50%;
-  background-color: ${({ isActive, theme }) => (isActive ? theme.COLORS.primary : '#fff')};
+  background-color: ${({ $isActive, theme }) => ($isActive ? theme.COLORS.primary : '#fff')};
 `;
 
 const CommentInput = ({ onSubmit }) => {
@@ -41,30 +41,31 @@ const CommentInput = ({ onSubmit }) => {
   const [isSecret, setIsSecret] = useState(false);
 
   const handleSubmit = () => {
-    if (!value.trim()) return;
-
-    onSubmit({ content: value, isSecret });
+    const trimmed = value.trim();
+    if (!trimmed) return;
+    onSubmit({ content: trimmed, isSecret });
     setValue('');
     setIsSecret(false);
   };
 
   return (
     <Wrapper>
-      <SecretToggle isActive={isSecret} onClick={() => setIsSecret(!isSecret)}>
-        <Circle isActive={isSecret} />
+      <SecretToggle $isActive={isSecret} onClick={() => setIsSecret(!isSecret)}>
+        <Circle $isActive={isSecret} />
         비밀
       </SecretToggle>
       <Input
         value={value}
         onChange={(e) => setValue(e.target.value)}
-        onKeyDown={(e) => {
+        onKeyUp={(e) => {
           if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
             handleSubmit();
           }
         }}
+        placeholder="댓글을 입력하세요"
       />
-      <SendSvg onClick={handleSubmit} />
+      <SendSvg onClick={handleSubmit} style={{ cursor: 'pointer' }} />
     </Wrapper>
   );
 };
