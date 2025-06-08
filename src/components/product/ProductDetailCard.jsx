@@ -3,19 +3,20 @@ import styled, { css } from 'styled-components';
 import LocationSvg from '@/assets/location.svg?react';
 import CommentSvg from '@/assets/comment.svg?react';
 import ProductImageSlider from './ProductImageSilder';
+import book1 from '@/assets/mock_book.svg';
+import book2 from '@/assets/mock_os2.svg';
+import book3 from '@/assets/mock_os3.svg';
 
 const mockProduct = {
   id: 1,
-  category: '책/서적',
-  imageUrls: Array.from({ length: 3 }, () =>
-    faker.image.avatarGitHub({ width: 300, height: 300, category: 'book' }),
-  ),
+  category: '책',
+  imageUrls: [book1, book2, book3],
   meetingLocation: 'AI공학관',
-  commentCount: 5,
+  commentCount: 2,
   title: '공룡책 팔아염',
   price: '10,000',
   seller: '무한이',
-  description: `소웨 2학년 전공책 만원에 팔아요. 거의 새 책입니다 ~`,
+  description: `소웨 2학년 전공책 만원에 팔아요. 필기된 페이지가 있긴 한데 거의 새 책입니다 ~`,
   status: '판매완료', // 추후 컴포넌트로 수정
 };
 

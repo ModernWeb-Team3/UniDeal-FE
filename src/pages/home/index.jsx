@@ -3,143 +3,18 @@ import styled from 'styled-components';
 import Button from '@/components/common/Button/Button';
 import logo from '@/assets/logo.svg';
 
-const Home = () => {
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [showSearch, setShowSearch] = useState(false);
-  const [showLocation, setShowLocation] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState('가천대학교');
-
-  const toggleSearch = () => setShowSearch((prev) => !prev);
-
-  const categories = ['의류', '책/서적', 'IT/전자기기'];
-  const locations = [
-    '가천대학교', 'AI공학관', '비전타워', '중앙도서관', '교육대학원',
-    '공과대학1', '공과대학2', '한의과대학', '전자정보도서관',
-    '글로벌센터', '법과대학', '생활관', '가천대역'
-  ];
-
-  const [isPressed, setIsPressed] = useState(false);
-
-  const handleWriteClick = () => {
-    setIsPressed(true);
-    setTimeout(() => setIsPressed(false), 150); // 0.15초 후 원래 상태로
-    // 추가로 이동이나 동작 수행 가능
-  };
-  
-  return (
-    
-    <Wrapper>
-      <FixedHeader>
-        <HeaderLogo>
-          <Logo src={logo} alt="Logo" />
-        </HeaderLogo>
-
-        <TopRow>
-          <Location onClick={() => setShowLocation((prev) => !prev)}>
-            {selectedLocation} ▾
-          </Location>
-          <SearchIcon onClick={toggleSearch}>🔍</SearchIcon>
-        </TopRow>
-
-        {showLocation && (
-          <LocationDropdown>
-            <LocationTitle></LocationTitle>
-            <LocationList>
-              {locations.map((loc) => (
-                <LocationItem
-                  key={loc}
-                  onClick={() => {
-                    setSelectedLocation(loc);
-                    setShowLocation(false);
-                  }}
-                >
-                  {loc}
-                </LocationItem>
-              ))}
-            </LocationList>
-          </LocationDropdown>
-        )}
-
-        {showSearch && (
-          <SearchInput
-            type="text"
-            placeholder="상품명으로 검색"
-            autoFocus
-          />
-        )}
-
-        <FilterWrapper>
-        {categories.map((category) => (
-          <Button
-            key={category}
-            variant={selectedCategory === category ? 'primary' : 'secondary'}
-            size="sm"
-            rounded="md"
-            textColor={selectedCategory === category ? '#fff' : '#333'}
-            borderColor="#ccc"
-            onClick={() =>
-              setSelectedCategory((prev) =>
-                prev === category ? '' : category
-              )
-            }
-          >
-            {category}
-          </Button>
-        ))}
-
-        </FilterWrapper>
-
-        <GuideText>판매중인 물품을 확인해보세요</GuideText>
-      </FixedHeader>
-
-      <ScrollArea>
-      <ItemList>
-        {[...Array(30)].map((_, i) => {
-          let status = null;
-
-          return (
-            <Item key={i}>
-              <Thumbnail />
-              <ItemInfo>
-                <Title>판매 상품 제목 {i + 1}</Title>
-                <SubInfo>{selectedLocation}</SubInfo>
-                <BottomRow>
-                  <Price>10,000원</Price>
-                </BottomRow>
-              </ItemInfo>
-            </Item>
-          );
-        })}
-      </ItemList>
-
-
-      </ScrollArea>
-
-      <FixedFooter>
-      <Button
-        variant="primary"
-        size="md"
-        rounded="full"
-        onClick={handleWriteClick}
-        style={{
-          transform: isPressed ? 'scale(0.96)' : 'scale(1)',
-          backgroundColor: isPressed ? '#DCEEFF' : '#2E8EFF',
-          transition: 'all 0.1s ease-in-out',
-        }}
-      >
-        + 글쓰기
-      </Button>
-
-      </FixedFooter>
-    </Wrapper>
-  );
-};
-
-export default Home;
-
-
+// 이미지 import
+import mockBook1 from '@/assets/mock_book.svg';
+import mockBook2 from '@/assets/mock_book2.svg';
+import mockBook3 from '@/assets/mock_book3.svg';
+import mockBook4 from '@/assets/mock_book4.svg';
+import mockCloth from '@/assets/mock_cloth.svg';
+import mockEtc from '@/assets/mock_etc.svg';
+import mockIt from '@/assets/mock_it.svg';
+import { useNavigate } from 'react-router-dom';
 
 //----- Styled Components------
+
 const Wrapper = styled.div`
   width: 100%;
   max-width: 430px;
@@ -168,7 +43,7 @@ const HeaderLogo = styled.div`
 `;
 
 const Logo = styled.img`
-  width: 120px; 
+  width: 120px;
   object-fit: contain;
   margin: 16px 0;
 `;
@@ -178,10 +53,11 @@ const TopRow = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
-// 위치 선택 및 검색 아이콘 */
+
 const Location = styled.div`
   font-weight: bold;
   font-size: 20px;
+  cursor: pointer;
 `;
 
 const SearchIcon = styled.span`
@@ -210,7 +86,7 @@ const GuideText = styled.p`
   font-size: 16px;
   margin-bottom: 8px;
 `;
-//* 상품 리스트 */
+
 const ScrollArea = styled.div`
   max-height: calc(112px * 5);
   overflow-y: auto;
@@ -271,18 +147,12 @@ const Price = styled.div`
   color: #000;
 `;
 
-// location dropdown
 const LocationDropdown = styled.div`
   background: #f3f3f3;
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 12px;
   margin-top: 10px;
-`;
-
-const LocationTitle = styled.div`
-  font-weight: bold;
-  margin-bottom: 8px;
 `;
 
 const LocationList = styled.ul`
@@ -307,3 +177,190 @@ const BottomRow = styled.div`
   margin-top: 8px;
 `;
 
+const Home = () => {
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const [showSearch, setShowSearch] = useState(false);
+  const [showLocation, setShowLocation] = useState(false);
+  const [selectedLocation, setSelectedLocation] = useState('가천대학교');
+  const [isPressed, setIsPressed] = useState(false);
+
+  const toggleSearch = () => setShowSearch((prev) => !prev);
+  const nav = useNavigate();
+
+  const categories = ['책', '의류', '전공물품', '전자기기', '기타'];
+  const locations = [
+    '가천대학교',
+    'AI공학관',
+    '비전타워',
+    '중앙도서관',
+    '교육대학원',
+    '공과대학1',
+    '공과대학2',
+    '한의과대학',
+    '전자정보도서관',
+    '글로벌센터',
+    '법과대학',
+    '생활관',
+    '가천대역',
+  ];
+
+  const mockProducts = [
+    {
+      id: 1,
+      category: '책',
+      title: '운영체제 책 팝니다',
+      location: 'AI공학관',
+      price: '10,000원',
+      imageUrl: mockBook1,
+    },
+    {
+      id: 2,
+      category: '책',
+      title: '콜잉책 팔아요',
+      location: '전자정보도서관',
+      price: '18,000원',
+      imageUrl: mockBook2,
+    },
+    {
+      id: 3,
+      category: '책',
+      title: '전공책 판매함ㅁㅁㅁㅁ',
+      location: '중앙도서관',
+      price: '13,000원',
+      imageUrl: mockBook3,
+    },
+    {
+      id: 4,
+      category: '책',
+      title: '생체재료학 전공책 팔아요',
+      location: '글로벌센터',
+      price: '12,000원',
+      imageUrl: mockBook4,
+    },
+    {
+      id: 5,
+      category: '의류',
+      title: '후드티 살 사람',
+      location: '가천대학교',
+      price: '8,000원',
+      imageUrl: mockCloth,
+    },
+    {
+      id: 6,
+      category: '전자기기',
+      title: '중고 에어팟 팝니다',
+      location: '전자정보도서관',
+      price: '50,000원',
+      imageUrl: mockIt,
+    },
+    {
+      id: 7,
+      category: '기타',
+      title: '미니 선풍기',
+      location: '비전타워',
+      price: '12,000원',
+      imageUrl: mockEtc,
+    },
+  ];
+
+  const handleWriteClick = () => {
+    setIsPressed(true);
+    setTimeout(() => setIsPressed(false), 150);
+    // 추가 동작 가능
+    nav('/product/new');
+  };
+
+  return (
+    <Wrapper>
+      <FixedHeader>
+        <HeaderLogo>
+          <Logo src={logo} alt="Logo" />
+        </HeaderLogo>
+
+        <TopRow>
+          <Location onClick={() => setShowLocation((prev) => !prev)}>{selectedLocation} ▾</Location>
+          <SearchIcon onClick={toggleSearch}>🔍</SearchIcon>
+        </TopRow>
+
+        {showLocation && (
+          <LocationDropdown>
+            <LocationList>
+              {locations.map((loc) => (
+                <LocationItem
+                  key={loc}
+                  onClick={() => {
+                    setSelectedLocation(loc);
+                    setShowLocation(false);
+                  }}
+                >
+                  {loc}
+                </LocationItem>
+              ))}
+            </LocationList>
+          </LocationDropdown>
+        )}
+
+        {showSearch && <SearchInput type="text" placeholder="상품명으로 검색" autoFocus />}
+
+        <FilterWrapper>
+          {categories.map((category) => (
+            <Button
+              key={category}
+              variant={selectedCategory === category ? 'primary' : 'secondary'}
+              size="sm"
+              rounded="md"
+              textColor={selectedCategory === category ? '#fff' : '#333'}
+              borderColor="#ccc"
+              onClick={() => setSelectedCategory((prev) => (prev === category ? '' : category))}
+            >
+              {category}
+            </Button>
+          ))}
+        </FilterWrapper>
+
+        <GuideText>판매중인 물품을 확인해보세요</GuideText>
+      </FixedHeader>
+
+      <ScrollArea>
+        <ItemList>
+          {mockProducts
+            .filter((item) => !selectedCategory || item.category === selectedCategory)
+            .map((item) => (
+              <Item
+                key={item.id}
+                onClick={() => nav(`/product/${item.id}`)}
+                style={{ cursor: 'pointer' }}
+              >
+                <Thumbnail as="img" src={item.imageUrl} alt={item.title} />
+                <ItemInfo>
+                  <Title>{item.title}</Title>
+                  <SubInfo>{item.location}</SubInfo>
+                  <BottomRow>
+                    <Price>{item.price}</Price>
+                  </BottomRow>
+                </ItemInfo>
+              </Item>
+            ))}
+        </ItemList>
+      </ScrollArea>
+
+      <FixedFooter>
+        <Button
+          variant="primary"
+          size="sm"
+          rounded="full"
+          onClick={handleWriteClick}
+          style={{
+            transform: isPressed ? 'scale(0.96)' : 'scale(1)',
+            backgroundColor: isPressed ? '#DCEEFF' : '#2E8EFF',
+            transition: 'all 0.1s ease-in-out',
+          }}
+        >
+          + 글쓰기
+        </Button>
+      </FixedFooter>
+    </Wrapper>
+  );
+};
+
+export default Home;

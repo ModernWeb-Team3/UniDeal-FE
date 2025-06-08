@@ -7,7 +7,7 @@ const ProductInquiry = () => {
   const [comments, setComments] = useState([]);
   const [replyTo, setReplyTo] = useState(null);
 
-  const currentUserId = 1; // 로그인된 유저 ID
+  const currentUserId = 4; // 로그인된 유저 ID
   const postOwnerId = 3; // 게시물 작성자 ID
 
   useEffect(() => {
@@ -15,8 +15,8 @@ const ProductInquiry = () => {
       {
         id: 1,
         authorId: 1,
-        nickname: '야호호',
-        content: '문의드립니다.',
+        nickname: '무당이',
+        content: '7000원에 거래 안될까요..?',
         isSecret: false,
       },
       {
@@ -35,7 +35,7 @@ const ProductInquiry = () => {
       {
         id: Date.now(),
         authorId: currentUserId,
-        nickname: '나',
+        nickname: '무한이',
         ...commentData,
       },
     ]);
@@ -52,7 +52,7 @@ const ProductInquiry = () => {
                 {
                   id: Date.now(),
                   authorId: currentUserId,
-                  nickname: '나',
+                  nickname: '무한이',
                   ...replyData,
                 },
               ],

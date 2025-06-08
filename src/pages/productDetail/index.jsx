@@ -2,8 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ProductDetailCard from '@/components/product/ProductDetailCard';
 import Button from '@/components/common/Button/Button';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '@/components/common/Header';
+import { getPostItem } from '@/api/post/post.api';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -21,6 +22,21 @@ const ProductDetail = () => {
   // const isOwner = product.sellerId === userId;
   const isOwner = true; // 임시로 true로 설정
 
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await getPostItem(id);
+        setProduct(res.data);
+        console.log(res.data);
+      } catch (error) {
+        // console.error('게시물 불러오기 실패:', error);
+        // alert('게시물 정보를 불러오는 데 실패했습니다.');
+      }
+    };
+
+    fetchProduct();
+  }, [id]);
+
   const handleEdit = () => {
     nav(`/product/${id}/edit`);
   };
@@ -31,7 +47,7 @@ const ProductDetail = () => {
 
   return (
     <>
-      <Header />
+      <Header title="운영체제 책 팝니다" />
       <Wrapper>
         <div style={{ flex: 1 }}>
           <ProductDetailCard productId={id} />
